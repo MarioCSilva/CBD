@@ -1,0 +1,173 @@
+```
+USER:
+CREATE TABLE User (
+	username text,
+	email text,
+	name text,
+	creation_date timestamp,
+	PRIMARY KEY(username)
+);
+
+--------------------------------------------
+VIDEO:
+CREATE TABLE Video (
+	id int,
+  author text,
+  name text,
+  description text,
+  tag list<text>,
+  followers set<text>,
+  total_rating float,
+  count_rating float,
+  creation_date timestamp,
+  PRIMARY KEY(id, author, creation_date)
+);
+
+CREATE TABLE Video_tag(
+  tag text PRIMARY KEY,
+  videos set<int>,
+  num_videos int,
+  creation_date timestamp
+);
+
+--------------------------------------------
+
+EVENT:
+CREATE TABLE Event (
+  author text,
+  video_id int,
+  type text,
+  moment timestamp,
+  creation_date timestamp,
+  PRIMARY KEY(video_id, author, moment, creation_date)
+);
+
+--------------------------------------------
+COMMENT:
+CREATE TABLE Comment_author(
+	video_id int,
+	author text,
+	comment text,
+	creation_date timestamp,
+	PRIMARY KEY (author, creation_date)
+) WITH CLUSTERING ORDER BY (creation_date DESC);
+
+CREATE TABLE Comment_video (
+	video_id int,
+	author text,
+	comment text,
+	creation_date timestamp,
+	PRIMARY KEY (video_id, creation_date)
+) WITH CLUSTERING ORDER BY (creation_date DESC);
+
+--------------------------------------------
+
+RATING:
+CREATE TABLE Rating (
+	id int,
+	video_id int,
+	value int,
+	PRIMARY KEY(video_id, id)
+);
+
+--------------------------------------------
+
+INSERT INTO User (username, email, name, creation_date) VALUES ('user1' ,'email1@gmail.com', 'Joao', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user2' ,'email2@gmail.com', 'Maria', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user3' ,'email3@gmail.com', 'Marco', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user4' ,'email4@gmail.com', 'Antonio', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user5' ,'email5@gmail.com', 'Rodrigo', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user6' ,'email6@gmail.com', 'Duarte', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user7' ,'email7@gmail.com', 'Tiago', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user8' ,'email8@gmail.com', 'Joao', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user9' ,'email9@gmail.com', 'Francisco', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user10' ,'email10@gmail.com', 'Leandro', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user11' ,'email11@gmail.com', 'Daniel', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user12' ,'email12@gmail.com', 'Bruno', toTimestamp(now()));
+INSERT INTO User (username, email, name, creation_date) VALUES ('user13' ,'email13@gmail.com', 'Hugo', toTimestamp(now()));
+
+--------------------------------------------
+
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user1', 'Trip around the World', 'Travelled around the world for 24 hours.', {'Amazing', 'Travell'}, {'user1','user3'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user2', 'Like Saturn on Earth', 'Description2', {'Universe'}, {'user4','user5'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user3', 'East of Eden', 'Description2', {'Countries'}, {'user6','user7'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user4', 'The sun also rises', 'Description3', {'Children', 'Earth'}, {'user9','user11'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user5', 'Vile Bodies', 'Description4', {'Crime', 'Action'}, {'user12','user13','user2'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user6', 'A Scanner Darkly', 'Description5', {'Dark'}, {'user2','user6','user4'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user7', 'Moab is My Washpot', 'Description6', {'Action', 'Comedy'}, {'user10','user4'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user8', 'Number the Stars', 'Description7', {'Universe', 'Learning'}, {'user5'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user9', 'Noli me Tangere', 'Description8', {'Insane', 'Suspanse'}, {'user8','user3'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user10', 'Brave New World', 'Description9', {'Action', 'Travell'}, {'user2','user8','user11'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user11', 'Rosemary and Rue', 'Description10', {'Romance', 'Adventure'}, {'user3','user5'},toTimestamp(now()));
+
+--------------------------------------------
+
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video1, 'user4', 'Awesome Video', toTimestamp(now())) ;
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video2, 'user4', 'Didnt liked it much', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video3, 'user11', 'Cute', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video4, 'user6', 'Something fun to Watch', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video5, 'user8', 'Not bad', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video6, 'user7', '10/10', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video7, 'user9', 'Pretty good', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video8, 'user6', 'Something fun to Watch', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video9, 'user4', 'Funny', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video10, 'user1', 'Not my thing', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video11, 'user2', 'Amazing video', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video12, 'use5', 'Relaxing to Watch', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (video13, 'user12', 'Pretty sick', toTimestamp(now()));
+
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video1, 'user4', 'Awesome Video', toTimestamp(now())) ;
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video2, 'user4', 'Didnt liked it much', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video3, 'user11', 'Cute', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video4, 'user6', 'Something fun to Watch', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video5, 'user8', 'Not bad', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video6, 'user7', '10/10', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video7, 'user9', 'Pretty good', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video8, 'user6', 'Something fun to Watch', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video9, 'user4', 'Funny', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video10, 'user1', 'Not my thing', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video11, 'user2', 'Amazing video', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video12, 'user5', 'Relaxing to Watch', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (video13, 'user12', 'Pretty sick', toTimestamp(now()));
+
+--------------------------------------------
+
+INSERT INTO Follower (user,video_id) VALUES ('user2@bot.com', 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+INSERT INTO Follower (user,video_id) VALUES ('user3@bot.com', 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+INSERT INTO Follower (user,video_id) VALUES ('user4@bot.com', 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+INSERT INTO Follower (user,video_id) VALUES ('user6', 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+INSERT INTO Follower (user,video_id) VALUES ('user6@bot.com', 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+INSERT INTO Follower (user,video_id) VALUES ('user7@bot.com', 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+INSERT INTO Follower (user,video_id) VALUES ('user8@bot.com', 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+INSERT INTO Follower (user,video_id) VALUES ('user9@bot.com', 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+INSERT INTO Follower (user,video_id) VALUES ('ds@test.com', 1f1a11e0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+INSERT INTO Follower (user,video_id) VALUES ('ds@test.com', 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d);
+
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'ds@test.com', 3ffcc5a0-0d4b-11ea-9d48-0b1cc2ad2f9d, 'Play', toTimestamp(now()), 0);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'ds@test.com', 3ffcc5a0-0d4b-11ea-9d48-0b1cc2ad2f9d, 'Pause', toTimestamp(now()), 310);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'ds@test.com', 3ffcc5a0-0d4b-11ea-9d48-0b1cc2ad2f9d, 'Play', toTimestamp(now()), 310);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'user7@bot.com ',19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Play', toTimestamp(now()), 0);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'clau@sof.pt',1baab4b0-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Play', toTimestamp(now()), 0);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'clau@sof.pt',1baab4b0-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Stop', toTimestamp(now()), 69);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'ds@test.com',1f1a11e0-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Play', toTimestamp(now()), 0);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'ds@test.com',1f1a11e0-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Play', toTimestamp(now()), 150);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'ds@test.com',1f1a11e0-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Pause', toTimestamp(now()), 200);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'ds@test.com',1f1a11e0-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Play', toTimestamp(now()), 200);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'ds@test.com',1f1a11e0-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Stop', toTimestamp(now()), 349);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'pedro@f.ag',20a1ea60-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Start', toTimestamp(now()), 0);
+INSERT INTO Event (id, user, video_id, action, real_timestamp, video_timestamp) VALUES (now(),'pedro@f.ag',20a1ea60-0d6d-11ea-9d48-0b1cc2ad2f9d, 'Stop', toTimestamp(now()), 50);
+                     
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 20a1ea60-0d6d-11ea-9d48-0b1cc2ad2f9d, 1);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 19e006d0-0d6d-11ea-9d48-0b1cc2ad2f9d, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 1baab4b0-0d6d-11ea-9d48-0b1cc2ad2f9d , 2);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 1baab4b0-0d6d-11ea-9d48-0b1cc2ad2f9d , 4);
+INSERT INTO Rating (id, video_id, value) VALUES (now(), 1baab4b0-0d6d-11ea-9d48-0b1cc2ad2f9d , 3);
+```

@@ -1,0 +1,314 @@
+notes taken from https://www.tutorialspoint.com/cassandra/cassandra_introduction.htm
+
+# Cassandra
+
+Cassandra is a distributed database from Apache that is highly scalable and designed to manage very large amounts of structured data. It provides high availability with no single point of failure.
+
+## What is Apache Cassandra?
+
+Apache Cassandra is an open source, distributed and decentralized/distributed storage system (database), for managing very large amounts of structured data spread out across the world. It provides highly available service with no single point of failure.
+
+Listed below are some of the notable points of Apache Cassandra −
+
+- It is scalable, fault-tolerant, and consistent.
+- It is a column-oriented database.
+- Its distribution design is based on Amazon’s Dynamo and its data model on Google’s Bigtable.
+- Created at Facebook, it differs sharply from relational database management systems.
+- Cassandra implements a Dynamo-style replication model with no single point of failure, but adds a more powerful “column family” data model.
+- Cassandra is being used by some of the biggest companies such as Facebook, Twitter, Cisco, Rackspace, ebay, Twitter, Netflix, and more.
+
+## Features of Cassandra
+
+Cassandra has become so popular because of its outstanding technical features. Given below are some of the features of Cassandra:
+
+- **Elastic scalability** − Cassandra is highly scalable; it allows to add more hardware to accommodate more customers and more data as per requirement.
+- **Always on architecture** − Cassandra has no single point of failure and it is continuously available for business-critical applications that cannot afford a failure.
+- **Fast linear-scale performance** − Cassandra is linearly scalable, i.e., it increases your throughput as you increase the number of nodes in the cluster. Therefore it maintains a quick response time.
+- **Flexible data storage** − Cassandra accommodates all possible data formats including: structured, semi-structured, and unstructured. It can dynamically accommodate changes to your data structures according to your need.
+- **Easy data distribution** − Cassandra provides the flexibility to distribute data where you need by replicating data across multiple data centers.
+- **Transaction support** − Cassandra supports properties like Atomicity, Consistency, Isolation, and Durability (ACID).
+- **Fast writes** − Cassandra was designed to run on cheap commodity hardware. It performs blazingly fast writes and can store hundreds of terabytes of data, without sacrificing the read efficiency.
+
+# Keyspace Operations
+
+## Creating a Keyspace using Cqlsh
+
+A keyspace in Cassandra is a namespace that defines data replication on nodes. A cluster contains one keyspace per node. Given below is the syntax for creating a keyspace using the statement **CREATE KEYSPACE**.
+
+### Syntax
+
+```
+CREATE KEYSPACE <identifier> WITH <properties>
+```
+
+## Replication
+
+The replication option is to specify the **Replica Placement strategy** and the number of replicas wanted. The following table lists all the replica placement strategies.
+
+| Strategy name                     | Description                                                  |
+| --------------------------------- | ------------------------------------------------------------ |
+| **Simple Strategy'**              | Specifies a simple replication factor for the cluster.       |
+| **Network Topology Strategy**     | Using this option, you can set the replication factor for each data-center independently. |
+| **Old Network Topology Strategy** | This is a legacy replication strategy.                       |
+
+##### Create a keyspace "tutorialspoint":
+
+```
+CREATE KEYSPACE tutorialspoint
+WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};
+```
+
+### Verification
+
+The command **Describe**, will display all the keyspaces created as shown below.
+
+```
+cqlsh> DESCRIBE keyspaces;
+
+tutorialspoint  system_auth  system_distributed
+system_schema   system       system_traces   
+```
+
+## Durable_writes
+
+By default, the durable_writes properties of a table is set to **true,** however it can be set to false. You cannot set this property to **simplex strategy.**
+
+```
+CREATE KEYSPACE test
+WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'datacenter1' : 3 }
+AND DURABLE_WRITES = false;
+```
+
+### Verification
+
+```
+cqlsh> SELECT * FROM system_schema.keyspaces;
+
+ keyspace_name   | durable_writes | replication
+--------------------+----------------+---------------------------------------------------------------------------------------
+         test |     False | {'class': 'org.apache.cassandra.locator.NetworkTopologyStrategy', 'datacenter1': '3'}
+
+     system_auth |      True |  {'class': 'org.apache.cassandra.locator.SimpleStrategy', 'replication_factor': '1'}
+
+   system_schema |      True |                {'class': 'org.apache.cassandra.locator.LocalStrategy'}
+
+   tutorialspoint |      True |  {'class': 'org.apache.cassandra.locator.SimpleStrategy', 'replication_factor': '3'}
+
+ system_distributed |      True |  {'class': 'org.apache.cassandra.locator.SimpleStrategy', 'replication_factor': '3'}
+
+        system |      True |                {'class': 'org.apache.cassandra.locator.LocalStrategy'}
+
+   system_traces |      True |  {'class': 'org.apache.cassandra.locator.SimpleStrategy', 'replication_factor': '2'}
+```
+
+## Using a Keyspace
+
+```
+USE tutorialspoint;
+```
+
+## Altering a KeySpace
+
+ALTER KEYSPACE can be used to alter properties such as the number of replicas and the durable_writes of a KeySpace.
+
+##### Altering the replication factor from 1 to 3:
+
+```
+ALTER KEYSPACE tutorialspoint
+WITH replication = {'class':'NetworkTopologyStrategy', 'replication_factor' : 3};
+```
+
+##### Altering the durable_writes property:
+
+```
+ALTER KEYSPACE test
+WITH REPLICATION = {'class' : 'NetworkTopologyStrategy', 'datacenter1' : 3}
+AND DURABLE_WRITES = true;
+```
+
+## Dropping a Keyspace
+
+```
+DROP KEYSPACE tutorialspoint;
+```
+
+
+
+# Table Operations
+
+## Creating a Table
+
+##### Create a table named employee with id of an employee as a primary key and with name, city, salary and phone number as other columns:
+
+```
+CREATE TABLE emp(
+   emp_id int PRIMARY KEY,
+   emp_name text,
+   emp_city text,
+   emp_sal varint,
+   emp_phone varint
+   );
+```
+
+### Verification
+
+```
+cqlsh:tutorialspoint>  select * from emp;
+
+ emp_id | emp_city | emp_name | emp_phone | emp_sal
+--------+----------+----------+-----------+---------
+```
+
+## Altering a Table
+
+The ALTER command, allows to perform the following operations:
+
+- #### Add a column:
+
+##### Adding a column called **emp_email** of text datatype to the table named **emp**:
+
+```
+ALTER TABLE emp
+ADD emp_email text;
+```
+
+- #### Drop a column:
+
+##### Dropping the column named **emp_email**:
+
+```
+ALTER TABLE emp DROP emp_email;
+```
+
+## Dropping a Table
+
+```
+DROP TABLE emp;
+```
+
+### Verification
+
+```
+cqlsh:tutorialspoint> DESCRIBE COLUMNFAMILIES;
+<empty>
+```
+
+## Truncating a Table
+
+Truncanting means that all the rows of the table are deleted permanently.
+
+```
+TRUNCATE <tablename>
+```
+
+## Creating an Index
+
+Create an index to a column ‘emp_name’ in a table named emp:
+
+```
+CREATE INDEX name ON emp (emp_name);
+```
+
+## Dropping an Index
+
+```
+drop index name;
+```
+
+## Using Batch Statements
+
+**BATCH** allows to execute multiple modification statements (insert, update, delete) simultaneiously.
+
+##### Example:
+
+- Insert a new row with the following details (4, rajeev, pune, 9848022331, 30000).
+- Update the salary of employee with row id 3 to 50000.
+- Delete city of the employee with row id 2.
+
+```
+cqlsh:tutorialspoint> BEGIN BATCH
+         ... INSERT INTO emp (emp_id, emp_city, emp_name, emp_phone, emp_sal) values( 4,'Pune','rajeev',9848022331, 30000);
+         ... UPDATE emp SET emp_sal = 50000 WHERE emp_id =3;
+         ... DELETE emp_city FROM emp WHERE emp_id = 2;
+         ... APPLY BATCH;
+```
+
+# CURD Operations
+
+## Creating Data in a Table
+
+insert data into the columns of a row in a table using the command **INSERT**:
+
+```
+INSERT INTO emp (emp_id, emp_name, emp_city,
+   emp_phone, emp_sal) VALUES(1,'ram', 'Hyderabad', 9848022338, 50000);
+```
+
+### Verification
+
+```
+cqlsh:tutorialspoint> SELECT * FROM emp;
+ emp_id | emp_city  | emp_name | emp_phone  | emp_sal
+--------+-----------+----------+------------+---------
+      1 | Hyderabad |      ram | 9848022338 |   50000
+```
+
+## Updating Data in a Table
+
+The following keywords are used while updating data in a table −
+
+- **Where** − This clause is used to select the row to be updated.
+- **Set** − Set the value using this keyword.
+- **Must** − Includes all the columns composing the primary key.
+
+While updating rows, if a given row is unavailable, then UPDATE creates a fresh row.
+
+##### Example: Updating the emp_city and the emp_sal of the employee with emp_id=1:
+
+```
+UPDATE emp SET emp_city='Delhi',emp_sal=50000
+WHERE emp_id=1;
+```
+
+### Verification
+
+```
+cqlsh:tutorialspoint> SELECT * FROM emp;
+ emp_id | emp_city | emp_name | emp_phone  | emp_sal
+--------+----------+----------+------------+---------
+      1 |    Delhi |      ram | 9848022338 |   50000
+```
+
+## Reading Data using Select Clause
+
+```
+select * from emp;
+```
+
+## Reading Required Columns
+
+```
+SELECT emp_name, emp_sal from emp;
+```
+
+## Where Clause
+
+```
+SELECT * FROM emp WHERE emp_sal=50000;
+```
+
+## Deleting Data from a Table
+
+##### Delete a collumn of the employee with emp_id=1:
+
+```
+ DELETE emp_sal FROM emp WHERE emp_id=1;
+```
+
+##### Delete the entire row of the employee with emp_id=1:
+
+```
+DELETE FROM emp WHERE emp_id=3;
+```
+
+# CQL Types

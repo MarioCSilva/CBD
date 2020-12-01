@@ -1,0 +1,90 @@
+// NMEC: 93430
+
+#1
+db.rest.find().pretty()
+
+#2
+db.rest.find({}, {restaurant_id: 1, nome: 1, gastronomia: 1, localidade: 1}).pretty()
+
+#3
+db.rest.find({}, {_id: 0, restaurant_id: 1, nome: 1, localidade: 1, 'address.zipcode': 1}).pretty()
+
+#4
+db.rest.find({"localidade":"Bronx"}).count()
+
+#5
+db.rest.find({localidade:"Bronx"} ).limit(15).sort({nome:1}).pretty()
+
+#6
+db.rest.find({ "grades.score": {$gte:85} }).pretty()
+
+#7
+db.rest.find({ "grades.score":{ $gte:80, $lte:100 } }).pretty()
+
+#8
+db.rest.find( { "address.coord.0": {$lt:-95.7} } ).pretty()
+
+#9
+db.rest.find( {gastronomia:{$ne:"American"}, "address.coord.0":{$lt:-65}, "grades.score":{$gt:70} } ).pretty()
+
+#10
+db.rest.find({nome: {$regex: /^Wil/}}, {restaurant_id: 1,nome: 1, localidade: 1, gastronomia: 1}).pretty()
+
+#11
+db.rest.find( {localidade:"Bronx", $or:[{gastronomia:"American"}, {gastronomia:"Chinese"}] }, {nome: 1, localidade: 1, gastronomia: 1} ).pretty()
+
+#12
+db.rest.find( {localidade:{$in:["Staten Island","Queens","Brooklyn"]}}, {restaurant_id: 1, nome:1, localidade:1, gastronomia:1} ).pretty()
+
+#13
+db.rest.find({"grades.score":{$not: {$gt: 3}}},{nome:1, localidade:1, "grades.score":1, gastronomia:1}).pretty()
+
+#14
+db.rest.find({"grades":{$elemMatch:{score:10, grade:"A", date:ISODate("2014-08-11T00:00:00Z")} }}, {nome:1, grades:1}).pretty()
+
+#15
+db.rest.find( {"grades.1.grade":"A", "grades.1.date":ISODate("2014-08-11T00:00:00Z")}, {restaurant_id:1, nome:1, "grades.score":1} ).pretty()
+
+#16
+db.rest.find( {"address.coord.1":{$gt:42,$lte:52}}, {restaurant_id:1, nome:1, address:1} ).pretty()
+
+#17
+db.rest.find().sort( {gastronomia:1, localidade:-1} , {nome:1, grastronomia:1, localidade:1}).pretty()
+
+#18
+
+db.rest.find({localidade:"Brooklyn", "grades.grade":"A", gastronomia:{$ne:"American"}},{nome:1, localidade:1, "grades.grade":1, gastronomia:1}).sort( {gastronomia:-1} ).pretty()
+
+#19
+db.rest.aggregate({"$group" : {_id:"$localidade", count:{$sum:1}}})
+
+#20
+db.rest.aggregate([ { $addFields: { avg : {$avg: "$grades.score"}} }, {$match:{ avg: {$gt:30} } }]).pretty()
+
+#21
+db.rest.aggregate([{$addFields:{sum:{$sum:"$grades.score"}}},{$match:{"gastronomia":"American","address.coord.0":{$lt:-60},sum:{$gt:75}}} ]).pretty()
+
+#22
+db.rest.aggregate({"$group": {_id:"$gastronomia", count:{$sum:1}}}, {$sort: {count:-1}})
+
+#23
+db.rest.distinct('gastronomia',{"address.rua":"Flatbush Avenue"}).length
+
+#24
+db.rest.aggregate([{$group: {_id:"$address.rua", count: {$sum: 1}}}, {$sort: {count:-1}}])
+
+#25
+#26 Apresente a rua com mais restaurantes.
+db.rest.aggregate({"$group" : {_id:"$address.rua", count:{$sum:1}}},{$sort: {count:-1}}, {$limit : 1} )
+
+#27 Apresente as 3 ruas com a soma dos scores dos restaurantes dessa rua mais altos.
+db.rest.aggregate([ {"$group" : {_id:"$address.rua", count:{$sum:{$sum: "$grades.score"}}}}, {$sort:{count:-1}}, {$limit:3}]).pretty()
+
+#28 Apresente o restaurante com o total da soma dos seus scores mais alto.
+db.rest.aggregate([ { $addFields: { sum : {$sum: "$grades.score"}} }, {$sort:{count:-1}}, {$limit:1}]).pretty()
+
+#29 Ordene os restaurantes por ordem crescente de score obtido em ISODate("2013-01-04T00:00:00Z").
+db.rest.find({"grades.date":ISODate("2013-01-04T00:00:00Z")}).sort({"grades.score":1}).pretty()
+
+#30 Conte o número de edifícios diferentes na localidade de Brooklyn.
+db.rest.distinct("address.building", {"localidade":"Brooklyn"}).length

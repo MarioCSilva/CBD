@@ -1,0 +1,280 @@
+- #### Create a new database if it doesn't exist, otherwise it will return the existing database:
+
+
+`use mydb`
+
+- #### Check the currently selected database:
+
+
+`db`
+
+- #### Check the databases list:
+
+
+`show dbs`
+
+- #### To display a created database without data, its necessary to insert at least one document into it:
+
+
+`db.movie.insert({"name":"tutorials point"})`
+
+`show dbs`
+
+- #### Delete the selected database. If none is selected then it will delete default 'test' database:
+
+`db.dropDatabase()`
+`show dbs`
+`use mydb`
+
+- #### Create  a collection with the name "mycol":
+
+`db.createCollection("mycol")`
+`show collections`
+
+- #### Create a collection with the option `capped`, which creates a collection with a fixed size that automatically overwrites its oldest entries when it reaches its maximum size, so its necessary to specify the size option too when this is set to true. `autoIndexID`  automatically creates an index on _id fields. `size` specifies a maximum size in bytes for a capped collection and  `max` specifies the maximum number of documents allowed in the capped collection:
+
+`db.createCollection("mycol", { capped : true, autoIndexID : true, size : 6142800, max : 10000 } )`
+
+- #### MongoDB creates collection automatically, when you insert some document:
+
+`db.tutorialspoint.insert({"name" : "tutorialspoint"})` 
+
+- #### Show all collections inside a database:
+
+`show collections`
+
+- ####  Drop a collection from the database:
+
+`db.tutorialspoint.drop()`
+
+> MongoDB supports many datatypes. Some of them are −
+>
+> - **String** − This is the most commonly used datatype to store the data. String in MongoDB must be UTF-8 valid.
+> - **Integer** − This type is used to store a numerical value. Integer can be 32 bit or 64 bit depending upon your server.
+> - **Boolean** − This type is used to store a boolean (true/ false) value.
+> - **Double** − This type is used to store floating point values.
+> - **Min/ Max keys** − This type is used to compare a value against the lowest and highest BSON elements.
+> - **Arrays** − This type is used to store arrays or list or multiple values into one key.
+> - **Timestamp** − ctimestamp. This can be handy for recording when a document has been modified or added.
+> - **Object** − This datatype is used for embedded documents.
+> - **Null** − This type is used to store a Null value.
+> - **Symbol** − This datatype is used identically to a string; however, it's generally reserved for languages that use a specific symbol type.
+> - **Date** − This datatype is used to store the current date or time in UNIX time format. You can specify your own date time by creating object of Date and passing day, month, year into it.
+> - **Object ID** − This datatype is used to store the document’s ID.
+> - **Binary data** − This datatype is used to store binary data.
+> - **Code** − This datatype is used to store JavaScript code into the document.
+> - **Regular expression** − This datatype is used to store regular expression.
+
+- #### Insert a document to collection "users":
+
+`db.users.insert({ _id : ObjectId("507f191e810c19729de860ea"), title: "MongoDB Overview", description: "MongoDB is no sql database", by: "tutorials point", url: "http://www.tutorialspoint.com", tags: ['mongodb', 'database', 'NoSQL'], likes: 100 })`
+
+`db.createCollection("post")`
+
+- #### Insert an array of document to collection "post":
+
+`db.post.insert([ { title: "MongoDB Overview", description: "MongoDB is no SQL database", by: "tutorials point", url: "http://www.tutorialspoint.com", tags: ["mongodb", "database", "NoSQL"], likes: 100 }, { title: "NoSQL Database", description: "NoSQL database doesn't have tables", by: "tutorials point", url: "http://www.tutorialspoint.com", tags: ["mongodb", "database", "NoSQL"], likes: 20, comments: [ { user:"user1", message: "My first comment", dateCreated: new Date(2013,11,10,2,35), like: 0 } ] } ])`
+
+`db.createCollection("empDetails")`
+
+- ####  Insert only one document into a collection:
+
+`db.empDetails.insertOne( { First_Name: "Radhika", Last_Name: "Sharma", Date_Of_Birth: "1995-09-26", e_mail: "radhika_sharma.123@gmail.com", phone: "9848022338" })`
+
+- #### Insert an array of document to collection "post":
+
+`db.empDetails.insertMany( [ { First_Name: "Radhika", Last_Name: "Sharma", Date_Of_Birth: "1995-09-26", e_mail: "radhika_sharma.123@gmail.com", phone: "9000012345" }, { First_Name: "Rachel", Last_Name: "Christopher", Date_Of_Birth: "1990-02-16", e_mail: "Rachel_Christopher.123@gmail.com", phone: "9000054321" }, { First_Name: "Fathima", Last_Name: "Sheik", Date_Of_Birth: "1990-02-16", e_mail: "Fathima_Sheik.123@gmail.com", phone: "9000054321" } ] )`
+
+- #### Display all the documents in a non-structured way:
+
+`db.empDetails.find()`
+
+- #### Display all the documents in a formatted way:
+
+`db.empDetails.find().pretty()`
+
+- #### Returns only one document:
+
+`db.empDetails.findOne( {First_Name :"Fathima"})`
+
+`db.mycol.insert([ { title: "MongoDB Overview", description: "MongoDB is no SQL database", by: "tutorials point", url: "http://www.tutorialspoint.com", tags: ["mongodb", "database", "NoSQL"], likes: 100 }, { title: "NoSQL Database", description: "NoSQL database doesn't have tables", by: "tutorials point", url: "http://www.tutorialspoint.com", tags: ["mongodb", "database", "NoSQL"], likes: 20, comments: [ { user:"user1", message: "My first comment", dateCreated: new Date(2013,11,10,2,35), like: 0 } ] } ])`
+
+#### **Operations to filter documents:**
+
+- #### Operation Equality:
+
+`db.mycol.find({"by":"tutorials point"}).pretty()`
+
+- #### Operation Less Than:
+
+`db.mycol.find({"likes":{$lt:50}}).pretty()`
+
+- #### Operation Less Than Equals:
+
+`db.mycol.find({"likes":{$lte:50}}).pretty()`
+
+- #### Operation Not Equals:
+
+`db.mycol.find({"likes":{$ne:50}}).pretty()`
+
+- #### Operation Values in an array:
+
+`db.mycol.find({"name":{$in:["Raj", "Ram", "Raghu"]}}).pretty()`
+
+- #### Operation Values not in an array:
+
+`db.mycol.find({"name":{$nin:["Ramu", "Raghav"]}}).pretty()`
+
+- #### Operation AND:
+
+`db.mycol.find({$and:[{"by":"tutorials point"},{"title": "MongoDB Overview"}]}).pretty()`
+
+- #### Operation OR:
+
+`db.mycol.find({$or:[{"by":"tutorials point"},{"title": "MongoDB Overview"}]}).pretty()`
+
+- #### Operation AND and OR together:
+
+`db.mycol.find({"likes": {$gt:10}, $or: [{"by": "tutorials point"},    {"title": "MongoDB Overview"}]}).pretty()`
+
+- #### Operation NOR:
+
+`db.empDetails.find( { $nor:[ {"First_Name": "Radhika"}, {"Last_Name": "Christopher"} ] })`
+
+- #### Operation NOT:
+
+`db.empDetails.find( { "Age": { $not: { $gt: "25" } } } )`
+
+- #### Update the value in the existing document, by default, MongoDB will update only a single document:
+
+`db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}})`
+
+`db.mycol.find()`
+
+- #### Update the value in all the matching documents:
+
+`db.mycol.update({'title':'MongoDB Overview'},    {$set:{'title':'New MongoDB Tutorial'}},{multi:true})`
+
+- #### Replace the existing document with the new document passed:
+
+`db.mycol.save( {  "_id" : ObjectId("507f191e810c19729de860ea"), "title":"Tutorials Point New Topic",   "by":"Tutorials Point"    } )`
+
+`db.mycol.find()`
+
+`db.empDetails.insertMany( [ { First_Name: "Radhika", Last_Name: "Sharma", Age: "26", e_mail: "radhika_sharma.123@gmail.com", phone: "9000012345" }, { First_Name: "Rachel", Last_Name: "Christopher", Age: "27", e_mail: "Rachel_Christopher.123@gmail.com", phone: "9000054321" }, { First_Name: "Fathima", Last_Name: "Sheik", Age: "24", e_mail: "Fathima_Sheik.123@gmail.com", phone: "9000054321" } ] )`
+
+- #### Updates the values in the existing document:
+
+`db.empDetails.findOneAndUpdate( {First_Name: 'Radhika'}, { $set: { Age: '30',e_mail: 'radhika_newemail@gmail.com'}})`
+
+- #### Updates a single document which matches the given filter:
+
+`db.empDetails.updateOne( {First_Name: 'Radhika'}, { $set: { Age: '30',e_mail: 'radhika_newemail@gmail.com'}} )`
+
+- ####  Update all the documents that matches the given filter:
+
+`db.empDetails.updateMany( {Age:{ $gt: "25" }}, { $set: { Age: '00'}} )`
+
+`db.mycol.find()`
+
+- #### Remove all documents that match the given filter from the collection:
+
+`db.mycol.remove({'title':'MongoDB Overview'})`
+
+`db.mycol.find()`
+
+- #### Remove only one document that matches the given filter from the collection:
+
+`db.mycol.remove({'title':'Tutorials Point'}, 1)`
+
+`db.mycol.find()`
+
+`db.mycol.inserMany({_id : ObjectId("507f191e810c19729de860e1"), title: "MongoDB Overview"},){_id : ObjectId("507f191e810c19729de860e2"), title: "NoSQL Overview"}, {_id : ObjectId("507f191e810c19729de860e3"), title: "Tutorials Point Overview"}`
+
+`db.empDetails.insertMany( [ { First_Name: "Radhika", Last_Name: "Sharma", Age: "26", e_mail: "radhika_sharma.123@gmail.com", phone: "9000012345" }, { First_Name: "Rachel", Last_Name: "Christopher", Age: "27", e_mail: "Rachel_Christopher.123@gmail.com", phone: "9000054321" }, { First_Name: "Fathima", Last_Name: "Sheik", Age: "24", e_mail: "Fathima_Sheik.123@gmail.com", phone: "9000054321" } ] )`
+
+- #### List all documents from the collection without showing the id:
+
+`db.empDetails.find({}, {"First_Name":1, _id:0})`
+
+`db.empDetails.find({}, {"First_Name":1})`
+
+- #### List only 2 documents (number passed as a parameter for the **limit()** ):
+
+`db.empDetails.find({}, {"First_Name":1, "_id":0}).limit(2)`
+
+- #### Skip 1 documents (number passed as a parameter for the **skip()** ):
+
+`db.empDetails.find({}, {"First_Name":1, "_id":0}).limit(2).skip(1)`
+
+`db.empDetails.find({}, {"First_Name":1, "_id":0}).limit(1).skip(1)`
+
+- #### List documents sorted by "First_Name" in the descending order:
+
+`_db.empDetails.find({}, {"First_Name":1, "_id":0}).sort({"First_Name":-1})`
+
+- #### List documents sorted by "First_Name" in the ascending order (default order):
+
+`db.empDetails.find({}, {"First_Name":1, "_id":0}).sort({"First_Name":1})`
+
+- #### Create an index for a particular field in ascending order (1):
+
+`db.mycol.createIndex({"title":1})`
+
+- #### Create an index for multiple fields:
+
+`db.mycol.createIndex({"title":1,"description":-1})`
+
+- ####  Drop a particular index:
+
+`db.mycol.dropIndex({"title":1})`
+
+`db.mycol.createIndex({"title":1,"description":-1})`
+
+- #### Delete multiple (specified) indexes:
+
+`db.mycol.dropIndexes({"title":1,"description":-1})`
+
+- #### Retrieve all the indexes in the collection:
+
+`db.mycol.getIndexes()`
+
+`db.mycol.insert( { title: 'Neo4j Overview',     description: 'Neo4j is no sql database',    by_user: 'Neo4j',    url: 'http://www.neo4j.com',    tags: ['neo4j', 'database', 'NoSQL'],    likes: 750}  )`
+
+`db.mycol.insert({    title: 'NoSQL Overview',     description: 'No sql database is very fast',    by_user: 'tutorials point',    url: 'http://www.tutorialspoint.com',    tags: ['mongodb', 'database', 'NoSQL'],    likes: 10 })`
+
+`db.mycol.insert({    title: 'MongoDB Overview',     description: 'MongoDB is no sql database',    by_user: 'tutorials point',    url: 'http://www.tutorialspoint.com',    tags: ['mongodb', 'database', 'NoSQL'],    likes: 100 })`
+
+###  Aggregation operations group values from multiple documents together, and can perform a variety of operations on the grouped data to return a single result:
+
+- #### Operation  **sum** (Sums up the defined value from all documents in the collection):
+
+`db.mycol.aggregate([{$group : {id : "$by_user", num_tutorial : {$sum : "$likes"}}}])`
+
+- #### Operation  **avg** (Calculates the average of all given values from all documents in the collection.):
+
+`db.mycol.aggregate([{$group : {id : "$by_user", num_tutorial : {$avg : "$likes"}}}])`
+
+- #### Operation  **min** (Gets the minimum of the corresponding values from all documents in the collection.):
+
+`db.mycol.aggregate([{$group : {id : "$by_user", num_tutorial : {$min : "$likes"}}}])`
+
+- #### Operation  **max** (Gets the maximum of the corresponding values from all documents in the collection.):
+
+`db.mycol.aggregate([{$group : {id : "$by_user", num_tutorial : {$max : "$likes"}}}])`
+
+- #### Operation  **push** (Inserts the value to an array in the resulting document.):
+
+`db.mycol.aggregate([{$group : {id : "$by_user", url : {$push: "$url"}}}])`
+
+- #### Operation  **addToSet** (Inserts the value to an array in the resulting document but does not create duplicates.):
+
+`db.mycol.aggregate([{$group : {id : "$by_user", url : {$addToSet : "$url"}}}])`
+
+- #### Operation  **first** (Gets the first document from the source documents according to the grouping. Typically this makes only sense together with some previously applied “$sort”-stage.):
+
+`db.mycol.aggregate([{$group : {id : "$by_user", first_url : {$first : "$url"}}}])`
+
+- ####  Operation  **last** (Gets the last document from the source documents according to the grouping. Typically this makes only sense together with some previously applied “$sort”-stage.):
+
+`db.mycol.aggregate([{$group : {_id : "$by_user", last_url : {$last : "$url"}}}])`

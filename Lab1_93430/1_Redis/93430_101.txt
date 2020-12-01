@@ -1,0 +1,95 @@
+set foo bar
+get foo
+PING
+DBSIZE
+SET Book:1 "Infinite Jest"
+GET Book:1
+SET Book:1:ReadAction 1
+GET Book:1:ReadAction
+INCR Book:1:ReadAction
+GET Book:1:ReadAction
+INCRBY Book:1:ReadAction 20
+GET Book:1:ReadAction
+DECR Book:1:ReadAction
+DECRBY Book:1:ReadAction 5
+GET Book:1:ReadAction
+INCR Book:1 "Infinite Jest"
+MSET Person:2 "Kurt Vonnegut" Person:3 "Jane Austen" Person:4 "Mark Twain"
+MGET Person:2 Person:3 Person:4
+SET Book:2 20
+GET Book:2
+GET Book:1
+SET testkey hello
+EXISTS testkey
+TYPE testkey
+keys *
+DEL testkey
+SCAN 0
+SCAN 123
+SCAN
+SCAN 1
+SCAN 0
+SCAN 0213123
+SCAN 213123
+SCAN 0 MATCH "hell*"
+SCAN 0 MATCH "f*"
+LPUSH Book:1:comment "This was a fun read"
+LRANGE Book:1:comment 0 -1
+LPUSH Book:1:comment "Way too long!"
+LRANGE Book:1:comment 0 -1
+RPUSH Book:1:comment "Tennis anyone?"
+LRANGE Book:1:comment 0 -1
+LPOP Book:1:comment
+LRANGE Book:1:comment 0 -1
+RPOP Book:1:comment
+LRANGE Book:1:comment 0 -1
+HSET Book:3 name "Cats Cradle"
+HGET Book:3 name
+HMSET Book:4 name "Slaughterhouse-Five" author "Kurt Vonnegut" copyrightYear 1969 ISBN 29960763
+HMGET Book:4 author ISBN
+HGETALL Book:4
+hEXISTS Book:4 copyrightYear
+HEXISTS Book:4 barcode
+PFADD EducationEvent:1:attendee Person:1 Person:2 Person:3 Person:44556
+PFCOUNT EducationEvent:1:attendee
+PFADD LiteraryEvent:1:attendee Person:4 Person:1
+SET Organization:5 "Beatles"
+SADD Organization:5:member Paul John George Ringo
+SMEMBERS Organization:5:member
+SISMEMBER Organization:5:member "John"
+SCARD Organization:5:member
+SET Organization:6 "Wings"
+SET Organization:7 "Traveling Wilburys"
+SUNION Organization:5:member Organization:6:member
+ SUNION Organization:6:member Organization:7:member
+SDIFF Organization:6:member Organization:5:member
+save
+bgsave
+CONFIG GET appendonly
+CONFIG GET asfdsf
+CONFIG GET port
+CONFIG SET appendonly yes
+MONITOR
+BGREWRITEAOF
+HSET Movie:345 name "Saving Mr. Banks"
+SET Movie:345:Likes 200
+MULTI
+HSET Movie:345 copyrightYear 2013
+INCR Movie:345:Likes
+HGET Movie:345
+GET Movie:345
+EXEC
+GET Movie:345
+EXEC
+MULTI
+HSET Movie:345 copyrightYear 2013
+INCR Movie:345:Likes
+EXEC
+MULTI
+HSET Movie:345 copyrightYear 2013
+DISCARD
+EXEC
+WATCH Movie:345:Likes
+MULTI
+INCR Movie:345:Likes
+EXEC
