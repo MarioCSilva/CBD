@@ -1,0 +1,12 @@
+{"id": 5, "author": "user5", "creation_date": "2020-12-09 15:17:19.540Z", "description": "Description4", "followers": ["user12", "user13", "user2"], "name": "Vile Bodies", "tag": ["Action", "Crime"]}
+{"id": 10, "author": "user10", "creation_date": "2020-12-09 15:17:19.637Z", "description": "Description9", "followers": ["user11", "user2", "user8"], "name": "Brave New World", "tag": ["Action", "Travell"]}
+{"id": 11, "author": "user11", "creation_date": "2020-12-09 15:17:19.719Z", "description": "Description10", "followers": ["user3", "user5"], "name": "Rosemary and Rue", "tag": ["Adventure", "Romance"]}
+{"id": 1, "author": "user1", "creation_date": "2020-12-09 15:17:19.522Z", "description": "Travelled around the world for 24 hours.", "followers": ["user1", "user3"], "name": "Trip around the World", "tag": ["Amazing", "Travell"]}
+{"id": 8, "author": "user8", "creation_date": "2020-12-09 15:17:19.628Z", "description": "Description7", "followers": ["user5"], "name": "Number the Stars", "tag": ["Universe"]}
+{"id": 2, "author": "user1", "creation_date": "2020-12-09 15:17:19.527Z", "description": "Description2", "followers": ["user4", "user5"], "name": "Like Saturn on Earth", "tag": ["Universe"]}
+{"id": 4, "author": "user5", "creation_date": "2020-12-09 15:17:19.536Z", "description": "Description3", "followers": ["user11", "user9"], "name": "The sun also rises", "tag": ["Children"]}
+{"id": 7, "author": "user7", "creation_date": "2020-12-09 15:17:19.623Z", "description": "Description6", "followers": ["user10", "user4"], "name": "Moab is My Washpot", "tag": ["Action", "Comedy"]}
+{"id": 6, "author": "user7", "creation_date": "2020-12-09 15:17:19.619Z", "description": "Description5", "followers": ["user2", "user4", "user6"], "name": "A Scanner Darkly", "tag": ["Dark"]}
+{"id": 9, "author": "user9", "creation_date": "2020-12-09 15:17:19.632Z", "description": "Description8", "followers": ["user3", "user8"], "name": "Noli me Tangere", "tag": ["Romance"]}
+{"id": 3, "author": "user1", "creation_date": "2020-12-09 15:17:19.531Z", "description": "Description2", "followers": ["user6", "user7"], "name": "East of Eden", "tag": ["Travell"]}
+

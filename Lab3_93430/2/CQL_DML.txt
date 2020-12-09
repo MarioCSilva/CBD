@@ -1,0 +1,183 @@
+```
+
+CREATE TABLE Author (
+  username text,
+  email text,
+  name text,
+  creation_date timestamp,
+  PRIMARY KEY(username)
+);
+
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user1' ,'email1@gmail.com', 'Joao', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user2' ,'email2@gmail.com', 'Maria', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user3' ,'email3@gmail.com', 'Marco', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user4' ,'email4@gmail.com', 'Antonio', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user5' ,'email5@gmail.com', 'Rodrigo', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user6' ,'email6@gmail.com', 'Duarte', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user7' ,'email7@gmail.com', 'Tiago', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user8' ,'email8@gmail.com', 'Joao', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user9' ,'email9@gmail.com', 'Francisco', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user10' ,'email10@gmail.com', 'Leandro', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user11' ,'email11@gmail.com', 'Daniel', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user12' ,'email12@gmail.com', 'Bruno', toTimestamp(now()));
+INSERT INTO Author (username, email, name, creation_date) VALUES ('user13' ,'email13@gmail.com', 'Hugo', toTimestamp(now()));
+
+--------------------------------------------
+
+CREATE TABLE Video (
+  id int,
+  author text,
+  name text,
+  description text,
+  tag set<text>,
+  followers set<text>,
+  creation_date timestamp,
+  PRIMARY KEY(id, author, creation_date)
+) WITH CLUSTERING ORDER BY (author ASC, creation_date DESC);
+
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (1, 'user1', 'Trip around the World', 'Travelled around the world for 24 hours.', {'Amazing', 'Travell'}, {'user1','user3'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (2, 'user1', 'Like Saturn on Earth', 'Description2', {'Universe'}, {'user4','user5'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (3, 'user1', 'East of Eden', 'Description2', {'Travell'}, {'user6','user7'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (4, 'user5', 'The sun also rises', 'Description3', {'Children'}, {'user9','user11'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (5, 'user5', 'Vile Bodies', 'Description4', {'Crime', 'Action'}, {'user12','user13','user2'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (6, 'user7', 'A Scanner Darkly', 'Description5', {'Dark'}, {'user2','user6','user4'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (7, 'user7', 'Moab is My Washpot', 'Description6', {'Action', 'Comedy'}, {'user10','user4'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (8, 'user8', 'Number the Stars', 'Description7', {'Universe'}, {'user5'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (9, 'user9', 'Noli me Tangere', 'Description8', {'Romance'}, {'user8','user3'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (10, 'user10', 'Brave New World', 'Description9', {'Action', 'Travell'}, {'user2','user8','user11'}, toTimestamp(now()));
+INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (11, 'user11', 'Rosemary and Rue', 'Description10', {'Romance', 'Adventure'}, {'user3','user5'},toTimestamp(now()));
+
+--------------------------------------------
+
+CREATE TABLE Author_Video (
+  author text PRIMARY KEY,
+  videos set<int>
+);
+
+INSERT INTO Author_Video (author, videos) VALUES ('user1', {1, 2, 3});
+INSERT INTO Author_Video (author, videos) VALUES ('user5', {4, 5});
+INSERT INTO Author_Video (author, videos) VALUES ('user7', {6, 7});
+INSERT INTO Author_Video (author, videos) VALUES ('user8', {8});
+INSERT INTO Author_Video (author, videos) VALUES ('user9', {9});
+INSERT INTO Author_Video (author, videos) VALUES ('user10', {10});
+INSERT INTO Author_Video (author, videos) VALUES ('user11', {11});
+
+--------------------------------------------
+
+CREATE TABLE Tag_Video (
+  tag text PRIMARY KEY,
+  videos set<int>,
+  num_videos int
+);
+
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Amazing', {1}, 1);
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Travell', {1, 3, 10}, 3);
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Universe', {2, 8}, 2);
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Crime', {5}, 1);
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Dark', {6}, 1);
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Romance', {9, 11}, 2);
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Comedy', {7}, 1);
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Children', {4}, 1);
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Adventure', {11}, 1);
+INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Action', {5, 7, 10}, 3);
+
+--------------------------------------------
+
+CREATE TABLE Comment_author(
+	video_id int,
+	author text,
+	comment text,
+	creation_date timestamp,
+	PRIMARY KEY (author, creation_date)
+) WITH CLUSTERING ORDER BY (creation_date DESC);
+
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (1, 'user4', 'Awesome Video', toTimestamp(now())) ;
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (2, 'user4', 'Didnt liked it much', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (3, 'user11', 'Cute', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (4, 'user6', 'Something fun to Watch', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (5, 'user8', 'Not bad', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (6, 'user7', '10/10', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (7, 'user9', 'Pretty good', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (8, 'user6', 'Something fun to Watch', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (9, 'user4', 'Funny', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (10, 'user1', 'Not my thing', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (11, 'user2', 'Amazing video', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (12, 'use5', 'Relaxing to Watch', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (13, 'user12', 'Pretty sick', toTimestamp(now()));
+
+--------------------------------------------
+
+CREATE TABLE Comment_video (
+	video_id int,
+	author text,
+	comment text,
+	creation_date timestamp,
+	PRIMARY KEY (video_id, creation_date)
+) WITH CLUSTERING ORDER BY (creation_date DESC);
+
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (1, 'user4', 'Awesome Video', toTimestamp(now())) ;
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (2, 'user4', 'Didnt liked it much', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (3, 'user11', 'Cute', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (4, 'user6', 'Something fun to Watch', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (5, 'user8', 'Not bad', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (6, 'user7', '10/10', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (7, 'user9', 'Pretty good', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (8, 'user6', 'Something fun to Watch', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (9, 'user4', 'Funny', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (10, 'user1', 'Not my thing', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (11, 'user2', 'Amazing video', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (12, 'user5', 'Relaxing to Watch', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (13, 'user12', 'Pretty sick', toTimestamp(now()));
+
+--------------------------------------------
+
+CREATE TABLE Event (
+  id int,
+  author text,
+  video_id int,
+  type text,
+  moment timestamp,
+  creation_date timestamp,
+  PRIMARY KEY(video_id, author, creation_date)
+);
+
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (1, 'user1', 1, 'Play', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (2, 'user1', 1, 'Pause', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (3, 'user2', 1, 'Play', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (4, 'user2', 1, 'Play', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (5, 'user3', 1, 'Play', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (6, 'user3', 1, 'Stop', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (7, 'user3', 1, 'Play', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (8, 'user5', 1, 'Play', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (9, 'user7', 1, 'Pause', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (10, 'user8', 1, 'Play', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (11, 'user9', 1, 'Stop', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (12, 'user9', 1, 'Start', toTimestamp(now()), toTimestamp(now()));
+INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (13, 'user10', 1, 'Stop', toTimestamp(now()), toTimestamp(now()));
+
+--------------------------------------------
+
+CREATE TABLE Rating (
+  id int,
+	video_id int,
+  value int,
+	PRIMARY KEY(video_id, id)
+);
+
+INSERT INTO Rating (id, video_id, value) VALUES (1, 1, 3);
+INSERT INTO Rating (id, video_id, value) VALUES (2, 2, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (3, 3, 2);
+INSERT INTO Rating (id, video_id, value) VALUES (4, 4, 3);
+INSERT INTO Rating (id, video_id, value) VALUES (5, 5, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (6, 6, 4);
+INSERT INTO Rating (id, video_id, value) VALUES (7, 7, 4);
+INSERT INTO Rating (id, video_id, value) VALUES (8, 8, 4);
+INSERT INTO Rating (id, video_id, value) VALUES (9, 9, 4);
+INSERT INTO Rating (id, video_id, value) VALUES (10, 10, 3);
+INSERT INTO Rating (id, video_id, value) VALUES (11, 11, 2);
+
+```
+
+
+## Queries
+
