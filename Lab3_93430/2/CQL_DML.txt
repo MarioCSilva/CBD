@@ -1,5 +1,6 @@
-```
+## Author
 
+```
 CREATE TABLE Author (
   username text,
   email text,
@@ -21,9 +22,15 @@ INSERT INTO Author (username, email, name, creation_date) VALUES ('user10' ,'ema
 INSERT INTO Author (username, email, name, creation_date) VALUES ('user11' ,'email11@gmail.com', 'Daniel', toTimestamp(now()));
 INSERT INTO Author (username, email, name, creation_date) VALUES ('user12' ,'email12@gmail.com', 'Bruno', toTimestamp(now()));
 INSERT INTO Author (username, email, name, creation_date) VALUES ('user13' ,'email13@gmail.com', 'Hugo', toTimestamp(now()));
+```
+
+
 
 --------------------------------------------
 
+## Video
+
+```
 CREATE TABLE Video (
   id int,
   author text,
@@ -46,24 +53,37 @@ INSERT INTO Video (id, author, name, description, tag, followers, creation_date)
 INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (9, 'user9', 'Noli me Tangere', 'Description8', {'Romance'}, {'user8','user3'}, toTimestamp(now()));
 INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (10, 'user10', 'Brave New World', 'Description9', {'Action', 'Travell'}, {'user2','user8','user11'}, toTimestamp(now()));
 INSERT INTO Video (id, author, name, description, tag, followers, creation_date) VALUES (11, 'user11', 'Rosemary and Rue', 'Description10', {'Romance', 'Adventure'}, {'user3','user5'},toTimestamp(now()));
+```
+
+
 
 --------------------------------------------
 
+## Author_Video
+
+```
 CREATE TABLE Author_Video (
-  author text PRIMARY KEY,
-  videos set<int>
+  author text,
+  videos set<int>,
+  creation_date timestamp,
+  PRIMARY KEY (author, creation_date)
 );
 
-INSERT INTO Author_Video (author, videos) VALUES ('user1', {1, 2, 3});
-INSERT INTO Author_Video (author, videos) VALUES ('user5', {4, 5});
-INSERT INTO Author_Video (author, videos) VALUES ('user7', {6, 7});
-INSERT INTO Author_Video (author, videos) VALUES ('user8', {8});
-INSERT INTO Author_Video (author, videos) VALUES ('user9', {9});
-INSERT INTO Author_Video (author, videos) VALUES ('user10', {10});
-INSERT INTO Author_Video (author, videos) VALUES ('user11', {11});
+INSERT INTO Author_Video (author, videos, creation_date) VALUES ('user1', {1, 2, 3}, toTimestamp(now()));
+INSERT INTO Author_Video (author, videos, creation_date) VALUES ('user5', {4, 5}, toTimestamp(now()));
+INSERT INTO Author_Video (author, videos, creation_date) VALUES ('user7', {6, 7}, toTimestamp(now()));
+INSERT INTO Author_Video (author, videos, creation_date) VALUES ('user8', {8}, toTimestamp(now()));
+INSERT INTO Author_Video (author, videos, creation_date) VALUES ('user9', {9}, toTimestamp(now()));
+INSERT INTO Author_Video (author, videos, creation_date) VALUES ('user10', {10}, toTimestamp(now()));
+INSERT INTO Author_Video (author, videos, creation_date) VALUES ('user11', {11}, toTimestamp(now()));
+```
+
 
 --------------------------------------------
 
+## Tag_Video
+
+```
 CREATE TABLE Tag_Video (
   tag text PRIMARY KEY,
   videos set<int>,
@@ -80,9 +100,15 @@ INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Comedy', {7}, 1);
 INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Children', {4}, 1);
 INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Adventure', {11}, 1);
 INSERT INTO Tag_Video (tag, videos, num_videos) VALUES ('Action', {5, 7, 10}, 3);
+```
+
+
 
 --------------------------------------------
 
+## Comment_Author
+
+```
 CREATE TABLE Comment_author(
 	video_id int,
 	author text,
@@ -104,9 +130,17 @@ INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (10
 INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (11, 'user2', 'Amazing video', toTimestamp(now()));
 INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (12, 'use5', 'Relaxing to Watch', toTimestamp(now()));
 INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (13, 'user12', 'Pretty sick', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (13, 'user1', 'Funny to Watch', toTimestamp(now()));
+INSERT INTO Comment_author (video_id, author, comment, creation_date) VALUES (13, 'user5', '9/10', toTimestamp(now()));
+```
+
+
 
 --------------------------------------------
 
+## Comment_Video
+
+```
 CREATE TABLE Comment_video (
 	video_id int,
 	author text,
@@ -127,10 +161,50 @@ INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (9, 
 INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (10, 'user1', 'Not my thing', toTimestamp(now()));
 INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (11, 'user2', 'Amazing video', toTimestamp(now()));
 INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (12, 'user5', 'Relaxing to Watch', toTimestamp(now()));
-INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (13, 'user12', 'Pretty sick', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (13, 'user12', 'Pretty cool', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (13, 'user1', 'Funny to Watch', toTimestamp(now()));
+INSERT INTO Comment_video (video_id, author, comment, creation_date) VALUES (13, 'user5', '9/10', toTimestamp(now()));
+```
+
+
 
 --------------------------------------------
 
+## Following_comment
+
+```
+CREATE TABLE Following_comment (
+    author text,
+    video_id int,
+    comments list<text>,
+
+    PRIMARY KEY (author, video_id)
+);
+```
+
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user4', 1, ['Awesome Video']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user4', 2, ['Didnt liked it much']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user4', 9, ['Funny']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user11', 3, ['Cute']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user6', 4, ['Something fun to Watch']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user6', 8, ['Something fun to Watch']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user8', 5, ['Not bad']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user7', 6, ['10/10']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user9', 7, ['Pretty good']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user1', 10, ['Not my thing']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user1', 13, ['Pretty cool', 'Funny to Watch']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user2', 11, ['Amazing video']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user5', 12, ['Relaxing to Watch']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user5', 13, ['9/10']);
+INSERT INTO Following_comment (author, video_id, comments) VALUES ('user12', 13, ['Pretty cool']);
+
+
+
+--------------------------------------------
+
+## Event
+
+```
 CREATE TABLE Event (
   id int,
   author text,
@@ -154,9 +228,13 @@ INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (10
 INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (11, 'user9', 1, 'Stop', toTimestamp(now()), toTimestamp(now()));
 INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (12, 'user9', 1, 'Start', toTimestamp(now()), toTimestamp(now()));
 INSERT INTO Event (id, author, video_id, type, moment, creation_date) VALUES (13, 'user10', 1, 'Stop', toTimestamp(now()), toTimestamp(now()));
+```
 
 --------------------------------------------
 
+## Rating
+
+```
 CREATE TABLE Rating (
   id int,
 	video_id int,
@@ -175,9 +253,180 @@ INSERT INTO Rating (id, video_id, value) VALUES (8, 8, 4);
 INSERT INTO Rating (id, video_id, value) VALUES (9, 9, 4);
 INSERT INTO Rating (id, video_id, value) VALUES (10, 10, 3);
 INSERT INTO Rating (id, video_id, value) VALUES (11, 11, 2);
+INSERT INTO Rating (id, video_id, value) VALUES (12, 1, 3);
+INSERT INTO Rating (id, video_id, value) VALUES (13, 2, 2);
+INSERT INTO Rating (id, video_id, value) VALUES (14, 3, 3);
+INSERT INTO Rating (id, video_id, value) VALUES (15, 4, 4);
+INSERT INTO Rating (id, video_id, value) VALUES (16, 5, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (17, 6, 1);
+INSERT INTO Rating (id, video_id, value) VALUES (18, 7, 2);
+INSERT INTO Rating (id, video_id, value) VALUES (19, 8, 5);
+INSERT INTO Rating (id, video_id, value) VALUES (20, 9, 4);
+```
 
+-----------------------------------------------
+
+
+
+## Queries. a)
+
+### 7. Permitir a pesquisa de todos os vídeos de determinado autor;
+
+#### `select * from video where author='user1' allow filtering;`
+
+```
+ id | author | creation_date                   | description                              | followers          | name                  | tag
+----+--------+---------------------------------+------------------------------------------+--------------------+-----------------------+------------------------
+  1 |  user1 | 2020-12-09 15:17:19.522000+0000 | Travelled around the world for 24 hours. | {'user1', 'user3'} | Trip around the World | {'Amazing', 'Travell'}
+  2 |  user1 | 2020-12-09 15:17:19.527000+0000 |                             Description2 | {'user4', 'user5'} |  Like Saturn on Earth |           {'Universe'}
+  3 |  user1 | 2020-12-09 15:17:19.531000+0000 |                             Description2 | {'user6', 'user7'} |          East of Eden |            {'Travell'}
+```
+
+### 8. Permitir a pesquisa de comentários por utilizador, ordenado inversamente pela data;
+
+#### `select * from comment_author where author = 'user4';`
+
+```
+ author | creation_date                   | comment             | video_id
+--------+---------------------------------+---------------------+----------
+  user4 | 2020-12-09 15:22:10.494000+0000 |               Funny |        9
+  user4 | 2020-12-09 15:22:10.395000+0000 | Didnt liked it much |        2
+  user4 | 2020-12-09 15:22:10.391000+0000 |       Awesome Video |        1
+```
+
+### 9. Permitir a pesquisa de comentários por vídeos, ordenado inversamente pela data;
+
+#### `select * from comment_video where video_id = 13;`
+
+```
+ video_id | creation_date                   | author | comment
+----------+---------------------------------+--------+----------------
+       13 | 2020-12-09 17:42:31.203000+0000 |  user5 |           9/10
+       13 | 2020-12-09 17:23:12.489000+0000 |  user1 | Funny to Watch
+       13 | 2020-12-09 17:23:10.985000+0000 | user12 |    Pretty cool
+```
+
+### 10. Permitir a pesquisa do rating médio de um vídeo e quantas vezes foi votado;
+
+#### `select avg(value), count(video_id) from rating where video_id=1;`
+
+```
+ system.avg(value) | system.count(video_id)
+-------------------+------------------------
+                 3 |                      2
 ```
 
 
-## Queries
+
+## Queries. d)
+
+### 1. Os últimos 3 comentários introduzidos para um vídeo;
+
+#### `select * from comment_video where video_id = 13 limit 3;`
+
+```
+ video_id | creation_date                   | author | comment
+----------+---------------------------------+--------+----------------
+       13 | 2020-12-09 17:42:31.203000+0000 |  user5 |           9/10
+       13 | 2020-12-09 17:23:12.489000+0000 |  user1 | Funny to Watch
+       13 | 2020-12-09 17:23:10.985000+0000 | user12 |    Pretty cool
+```
+
+### 2. Lista das tags de determinado vídeo;
+
+#### `select tag from video where id = 1;`
+
+```
+ tag
+------------------------
+ {'Amazing', 'Travell'}
+```
+
+### 3. Todos os vídeos com a tag Aveiro;
+
+#### `select videos from tag_video where tag = 'Action';`
+
+```
+ videos
+------------
+ {5, 7, 10}
+```
+
+### 4. Os últimos 5 eventos de determinado vídeo realizados por um utilizador;
+
+#### `select * from event where video_id = 1 and author = 'user1' limit 5;`
+
+```
+ video_id | author | creation_date                   | id | moment                          | type
+----------+--------+---------------------------------+----+---------------------------------+-------
+        1 |  user1 | 2020-12-09 15:22:47.492000+0000 |  1 | 2020-12-09 15:22:47.492000+0000 |  Play
+        1 |  user1 | 2020-12-09 15:22:47.496000+0000 |  2 | 2020-12-09 15:22:47.497000+0000 | Pause
+```
+
+### 5. Vídeos partilhados por determinado utilizador (maria1987, por exemplo) num determinado período de tempo (Agosto de 2017, por exemplo);
+
+#### `select * from author_video where author = 'user1' and creation_date > '2020-12-09' and creation_date < '2020-12-10';`
+Desta forma teríamos de depois fazer uma query para ir buscar os dados de cada video à tabelo Video.
+```
+ author | creation_date                   | videos
+--------+---------------------------------+-----------
+  user1 | 2020-12-09 17:50:02.462000+0000 | {1, 2, 3}
+```
+
+### 6. Os últimos 10 vídeos, ordenado inversamente pela data da partilhada;
+
+#### Não é possível fazer esta query, o cassandra organiza dados por partições e para filtrar dados é necessário indicar qual partição pretende-se, o que significa que para fazer um order by seria necessário referir partição se pretende.
+
+
+### 7. Todos os seguidores (followers) de determinado vídeo;
+
+#### `select followers from video where id = 1;`
+Desta forma teríamos de depois fazer uma query para ir buscar os dados de cada utilizador à tabela Author.
+```
+ followers
+--------------------
+ {'user1', 'user3'}
+```
+
+### 8. Todos os comentários (dos vídeos) que determinado utilizador está a seguir (following);
+
+#### `select * from Following_comment where author = 'user1';`
+
+```
+ author | video_id | comments
+--------+----------+-----------------------------------
+  user1 |       10 |                  ['Not my thing']
+  user1 |       13 | ['Pretty cool', 'Funny to Watch']
+```
+
+
+### 9. Os 5 vídeos com maior rating;
+
+#### Não é possível fazer esta query, pela mesma razão da alinea 6, seria necessário restringir a partição.
+
+
+### 10. Uma query que retorne todos os vídeos e que mostre claramente a forma pela qual estão ordenados.
+
+#### Não é possível fazer esta query.
+
+
+### 11. Lista com as Tags existentes e o número de vídeos catalogados com cada uma delas;
+
+#### `select tag, num_videos from tag_video;`
+
+```
+
+ tag       | num_videos
+-----------+------------
+    Comedy |          1
+   Travell |          3
+    Action |          3
+   Amazing |          1
+      Dark |          1
+  Universe |          2
+   Romance |          2
+  Children |          1
+     Crime |          1
+ Adventure |          1
+```
 
