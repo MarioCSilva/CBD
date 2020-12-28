@@ -121,6 +121,16 @@ public class App
         searchAuthorByUsername(author.getUsername());
     }
 
+    public static void deleteAuthor(Author author) {
+        StringBuilder sb = new StringBuilder("DELETE FROM ")
+          .append("Author").append(" where username = '")
+          .append(author.getUsername())
+          .append("';");
+        
+        String query = sb.toString();
+        System.out.println(query);
+        session.execute(query);
+    }
 
     public static void main( String[] args )
     {
@@ -171,6 +181,14 @@ public class App
         System.out.println("\nEdit Author Creation Date");
         author.setTimestamp(new Date(System.currentTimeMillis()));
         editAuthor(author);
+
+
+        // Data Deletion
+        System.out.println("\nData Deletion");
+        deleteAuthor(author);
+
+        System.out.println("\nAuthor Table After Deletion");
+        searchAuthor();
 
         close();
     }

@@ -10,35 +10,35 @@ CREATE TABLE Medic (
   email text,
   telephone int,
   address text,
-  specialty text,
+  speciality text,
   pacients_id set<int>,
   consultations_id list<int>,
   PRIMARY KEY(num_func)
 );
 
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id) 
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id) 
 VALUES (1 , 'Joao', 'email_med_1@gmail.com', 912451111, 'Rua de Rendo', 'Cardiologia', {1, 10}, [1, 2, 13]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
-VALUES (2 , 'Maria', 'email_med_2@gmail.com', 912451112, 'Rua de Albergaria', 'Cirugia Cardíaca', {2}, [3]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
-VALUES (3 , 'Marco', 'email_med_3@gmail.com', 912451113, 'Rua de Gavião', 'Imunoalergologia', {3}, [4, 5, 6]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
+VALUES (2 , 'Maria', 'email_med_2@gmail.com', 912451112, 'Rua de Albergaria', 'Oftalmologia', {2}, [3]);
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
+VALUES (3 , 'Marco', 'email_med_3@gmail.com', 912451113, 'Rua de Gavião', 'Oftalmologia', {3}, [4, 5, 6]);
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
 VALUES (4 , 'Antonio', 'email_med_4@gmail.com', 912451114, 'Rua de Mouqim', 'Doenças Infeciosas', {4, 5, 6}, [7, 8, 9]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
 VALUES (5 , 'Rodrigo', 'email_med_5@gmail.com', 912451115, 'Rua de Alombada', 'Farmacologia Clínica', {7}, [10]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
 VALUES (6 , 'Duarte', 'email_med_6@gmail.com', 912451116, 'Rua de Valongo', 'Ginecologista', {8}, [11]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
 VALUES (7 , 'Tiago', 'email_med_7@gmail.com', 912451117, 'Rua de Sobreiro', 'Neurologia', {9}, [12]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
-VALUES (8 , 'Joao', 'email_med_8@gmail.com', 912451118, 'Avenida de Casal', 'Oftalmologista', {10}, [19]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
+VALUES (8 , 'Joao', 'email_med_8@gmail.com', 912451118, 'Avenida de Casal', 'Oftalmologia', {10}, [19]);
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
 VALUES (9 , 'Francisco', 'email_med_9@gmail.com', 912451119, 'Avenida de Cambra', 'Otorrinolaringologia', {11}, [14]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
 VALUES (10 , 'Leandro', 'email_med_10@gmail.com', 912451120, 'Avenida de Travasso', 'Ortopedia', {12}, [15]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
-VALUES (11 , 'Daniel', 'email_med_11@gmail.com', 912451121, 'Avenida de Taipa', 'Patologia', {13}, [16]);
-INSERT INTO Medic (num_func, name, email, telephone, address, specialty, pacients_id, consultations_id)
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
+VALUES (11 , 'Daniel', 'email_med_11@gmail.com', 912451121, 'Avenida de Taipa', 'Oftalmologia', {13}, [16]);
+INSERT INTO Medic (num_func, name, email, telephone, address, speciality, pacients_id, consultations_id)
 VALUES (12 , 'Bruno', 'email_med_12@gmail.com', 912451122, 'Avenida de Arrujo', 'Pediatria', {2, 4}, [17, 18]);
 
 ```
@@ -61,13 +61,13 @@ CREATE TABLE Pacient (
 );
 
 INSERT INTO Pacient (num_pac, name, email, telephone, address, consultations_id)
-VALUES (1, 'José', 'email_pac_1@gmail.com', 912554120, 'Rua de Palmares', [1, 2]);
+VALUES (1, 'Jose', 'email_pac_1@gmail.com', 912554120, 'Rua de Palmares', [1, 2]);
 INSERT INTO Pacient (num_pac, name, email, telephone, address, consultations_id)
 VALUES (2, 'Rita', 'email_pac_2@gmail.com', 912554120, 'Rua de Sintra', [3, 17]);
 INSERT INTO Pacient (num_pac, name, email, telephone, address, consultations_id)
 VALUES (3, 'Ricardo', 'email_pac_3@gmail.com', 912554120, 'Rua de Oliveira', [4, 5, 6, 18]);
 INSERT INTO Pacient (num_pac, name, email, telephone, address, consultations_id)
-VALUES (4, 'Manuel', 'email_pac_4@gmail.com', 912554120, 'Rua de Santos', [7]);
+VALUES (4, 'Ricardo', 'email_pac_4@gmail.com', 912554120, 'Rua de Santos', [7]);
 INSERT INTO Pacient (num_pac, name, email, telephone, address, consultations_id)
 VALUES (5, 'Pedro', 'email_pac_5@gmail.com', 912554120, 'Rua de Cima', [8]);
 INSERT INTO Pacient (num_pac, name, email, telephone, address, consultations_id)
@@ -100,8 +100,8 @@ CREATE TABLE Consultation (
   pacient_id_name tuple<int, text>,
   prescription_pharmaco_quantity map<int, int>,
   date_time timestamp,
-  PRIMARY KEY(num_cons)
-);
+  PRIMARY KEY(num_cons, date_time)
+) WITH CLUSTERING ORDER BY (date_time DESC);
 
 INSERT INTO Consultation (num_cons, medic_id_name, pacient_id_name, prescription_pharmaco_quantity, date_time)
 VALUES (1, (1, 'Joao'), (1, 'José'), {1: 3}, toTimestamp(now()));
@@ -116,7 +116,7 @@ VALUES (5, (3, 'Marco'), (3, 'Ricardo'), {5: 1, 14: 1, 16: 3}, toTimestamp(now()
 INSERT INTO Consultation (num_cons, medic_id_name, pacient_id_name, prescription_pharmaco_quantity, date_time)
 VALUES (6, (3, 'Marco'), (3, 'Ricardo'), {6: 1}, toTimestamp(now()));
 INSERT INTO Consultation (num_cons, medic_id_name, pacient_id_name, prescription_pharmaco_quantity, date_time)
-VALUES (7, (4, 'Antonio'), (4, 'Manuel'), {7: 4}, toTimestamp(now()));
+VALUES (7, (4, 'Antonio'), (4, 'Ricardo'), {7: 4}, toTimestamp(now()));
 INSERT INTO Consultation (num_cons, medic_id_name, pacient_id_name, prescription_pharmaco_quantity, date_time)
 VALUES (8, (4, 'Antonio'), (5, 'Pedro'), {8: 2, 9: 3}, toTimestamp(now()));
 INSERT INTO Consultation (num_cons, medic_id_name, pacient_id_name, prescription_pharmaco_quantity, date_time)
@@ -153,195 +153,203 @@ CREATE TABLE Pharmaco (
   code int,
   name text,
   supplier text,
-  PRIMARY KEY(code)
-);
+  price float,
+  PRIMARY KEY(code, price)
+) WITH CLUSTERING ORDER BY (price DESC);
 
-INSERT INTO Pharmaco (code, name, supplier) VALUES (1, 'Albuterol', 'Eli Lilly');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (2, 'Aripiprazole', 'GlaxoSmithKline');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (3, 'Aspir 81', 'Sanofi');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (4, 'Ibuprofen', 'AstraZeneca');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (5, 'Imipramine', 'AbbVie');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (6, 'Indocin', 'Pfizer');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (7, 'Latanoprost', 'Roche');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (8, 'Lutein', 'Merck & Co.');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (9, 'Lumigan', 'Novartis');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (10, 'Lidocaine', 'Johnson & Johnson');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (11, 'Ultracet', 'Pharmacy PT');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (12, 'Prednisolone', 'CostaPharmacy');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (13, 'Paracetamol', 'RealEasyPharmacies');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (15, 'Magnesium citrate', 'RealEasyPharmacies');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (16, 'Metoclopramide', 'Pfizer');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (17, 'Morphine', 'Pfizer');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (18, 'Myrbetriq', 'Novartis');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (19, 'Genotropin', 'Roche');
-INSERT INTO Pharmaco (code, name, supplier) VALUES (20, 'Glycerin', 'Roche');
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (1, 'Albuterol', 'Eli Lilly', 10.9);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (2, 'Aripiprazole', 'GlaxoSmithKline', 19.0);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (3, 'Aspir 81', 'Sanofi', 20.0);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (4, 'Ibuprofen', 'AstraZeneca', 1.2);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (5, 'Imipramine', 'AbbVie', 3.5);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (6, 'Indocin', 'Pfizer', 13.99);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (7, 'Latanoprost', 'Roche', 12.20);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (8, 'Lutein', 'Merck & Co.', 15.5);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (9, 'Lumigan', 'Pfizer', 9.5);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (10, 'Lidocaine', 'Pfizer', 12.2);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (11, 'Ultracet', 'Pfizer', 4.99);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (12, 'Prednisolone', 'CostaPharmacy', 4.23);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (13, 'Paracetamol', 'RealEasyPharmacies', 0.99);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (15, 'Magnesium citrate', 'RealEasyPharmacies', 16.66);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (16, 'Metoclopramide', 'Pfizer', 19.90);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (17, 'Morphine', 'Pfizer', 45.9);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (18, 'Myrbetriq', 'Pfizer', 30.0);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (19, 'Genotropin', 'Roche', 89.99);
+INSERT INTO Pharmaco (code, name, supplier, price) VALUES (20, 'Glycerin', 'Roche', 60.00);
 ```
 
 
 
 --------------------------------------------
 
+## Indexes
+### Index of the medic on the table of consultations
+`CREATE INDEX medic_index_cons ON consultation (medic_id_name);`
+
+### Index of the supplier on the table of pharmacos
+`CREATE INDEX supplier_index ON pharmaco (supplier);`
 
 
-## Queries. a)
+## e.
 
-### 7. Permitir a pesquisa de todos os vídeos de determinado autor;
+## Updates
 
-#### `select * from video where author='user1' allow filtering;`
-
+### Create a new Consultation (row) by Updating the table with a non-existing yet partition key (num_cons)
 ```
- id | author | creation_date                   | description                              | followers          | name                  | tag
-----+--------+---------------------------------+------------------------------------------+--------------------+-----------------------+------------------------
-  1 |  user1 | 2020-12-09 15:17:19.522000+0000 | Travelled around the world for 24 hours. | {'user1', 'user3'} | Trip around the World | {'Amazing', 'Travell'}
-  2 |  user1 | 2020-12-09 15:17:19.527000+0000 |                             Description2 | {'user4', 'user5'} |  Like Saturn on Earth |           {'Universe'}
-  3 |  user1 | 2020-12-09 15:17:19.531000+0000 |                             Description2 | {'user6', 'user7'} |          East of Eden |            {'Travell'}
-```
-
-### 8. Permitir a pesquisa de comentários por utilizador, ordenado inversamente pela data;
-
-#### `select * from comment_author where author = 'user4';`
-
-```
- author | creation_date                   | comment             | video_id
---------+---------------------------------+---------------------+----------
-  user4 | 2020-12-09 15:22:10.494000+0000 |               Funny |        9
-  user4 | 2020-12-09 15:22:10.395000+0000 | Didnt liked it much |        2
-  user4 | 2020-12-09 15:22:10.391000+0000 |       Awesome Video |        1
+update consultation set medic_id_name=(10, 'Leandro'), pacient_id_name=(2, 'Rita'),
+prescription_pharmaco_quantity={}, date_time=toTimestamp(now()) where num_cons=20;
 ```
 
-### 9. Permitir a pesquisa de comentários por vídeos, ordenado inversamente pela data;
+### Update the pacient's list of consultations
+`update pacient set consultations_id=consultations_id + [20] where num_pac=2;`
 
-#### `select * from comment_video where video_id = 13;`
 
+### Update the medic's list of pacients and consultations
+`update medic set pacients_id=pacients_id + [2],consultations_id=consultations_id + [20] where num_func=10;`
+
+
+### Update the supplier for the pharmacos with codes {1, 2, 3}
+`update pharmaco set supplier='New Pharmacy' where code in (1, 2, 3);`
+
+
+### Update the address and email of a pacient
+`update pacient set address='Rua de Coentrao', email='rute@gmail.com' where num_pac=13;` 
+
+
+## Deletes
+
+
+### Delete a pharmaco if the supplier is Roche
+`delete from pharmaco where code=19 if supplier='Roche';`
+
+### Delete presciption (map entry), in a consultation, of the pharmaco deleted before
+`delete prescription_pharmaco_quantity [19] from consultation where num_cons=18;`
+
+### Delete a consultation if exists
+`delete from consultation where num_cons=17;`
+
+### Delete the corresponding consultation from the list and the pacient from the set of the medic
+`delete consultations_id[0], pacients_id [2] from medic where num_func=12;`
+
+### Delete the corresponding consultation from the list of the pacient
+`delete consultations_id[1] from pacient where num_pac=2;`
+
+
+## Selects
+
+### Select the number of consultation of the medic 'Joao'
+#### Possible because of index
+`select count(num_cons) from consultation where medic_id_name=(1,'Joao');`
 ```
- video_id | creation_date                   | author | comment
-----------+---------------------------------+--------+----------------
-       13 | 2020-12-09 17:42:31.203000+0000 |  user5 |           9/10
-       13 | 2020-12-09 17:23:12.489000+0000 |  user1 | Funny to Watch
-       13 | 2020-12-09 17:23:10.985000+0000 | user12 |    Pretty cool
-```
-
-### 10. Permitir a pesquisa do rating médio de um vídeo e quantas vezes foi votado;
-
-#### `select avg(value), count(video_id) from rating where video_id=1;`
-
-```
- system.avg(value) | system.count(video_id)
--------------------+------------------------
-                 3 |                      2
-```
-
-
-
-## Queries. d)
-
-### 1. Os últimos 3 comentários introduzidos para um vídeo;
-
-#### `select * from comment_video where video_id = 13 limit 3;`
-
-```
- video_id | creation_date                   | author | comment
-----------+---------------------------------+--------+----------------
-       13 | 2020-12-09 17:42:31.203000+0000 |  user5 |           9/10
-       13 | 2020-12-09 17:23:12.489000+0000 |  user1 | Funny to Watch
-       13 | 2020-12-09 17:23:10.985000+0000 | user12 |    Pretty cool
-```
-
-### 2. Lista das tags de determinado vídeo;
-
-#### `select tag from video where id = 1;`
-
-```
- tag
+ system.count(num_cons)
 ------------------------
- {'Amazing', 'Travell'}
-```
-
-### 3. Todos os vídeos com a tag Aveiro;
-
-#### `select videos from tag_video where tag = 'Action';`
-
-```
- videos
-------------
- {5, 7, 10}
-```
-
-### 4. Os últimos 5 eventos de determinado vídeo realizados por um utilizador;
-
-#### `select * from event where video_id = 1 and author = 'user1' limit 5;`
-
-```
- video_id | author | creation_date                   | id | moment                          | type
-----------+--------+---------------------------------+----+---------------------------------+-------
-        1 |  user1 | 2020-12-09 15:22:47.492000+0000 |  1 | 2020-12-09 15:22:47.492000+0000 |  Play
-        1 |  user1 | 2020-12-09 15:22:47.496000+0000 |  2 | 2020-12-09 15:22:47.497000+0000 | Pause
-```
-
-### 5. Vídeos partilhados por determinado utilizador (maria1987, por exemplo) num determinado período de tempo (Agosto de 2017, por exemplo);
-
-#### `select * from author_video where author = 'user1' and creation_date > '2020-12-09' and creation_date < '2020-12-10';`
-Desta forma teríamos de depois fazer uma query para ir buscar os dados de cada video à tabelo Video.
-```
- author | creation_date                   | videos
---------+---------------------------------+-----------
-  user1 | 2020-12-09 17:50:02.462000+0000 | {1, 2, 3}
-```
-
-### 6. Os últimos 10 vídeos, ordenado inversamente pela data da partilhada;
-
-#### Não é possível fazer esta query, o cassandra organiza dados por partições e para filtrar dados é necessário indicar qual partição pretende-se, o que significa que para fazer um order by seria necessário referir partição se pretende.
-
-
-### 7. Todos os seguidores (followers) de determinado vídeo;
-
-#### `select followers from video where id = 1;`
-Desta forma teríamos de depois fazer uma query para ir buscar os dados de cada utilizador à tabela Author.
-```
- followers
---------------------
- {'user1', 'user3'}
-```
-
-### 8. Todos os comentários (dos vídeos) que determinado utilizador está a seguir (following);
-
-#### `select * from Following_comment where author = 'user1';`
-
-```
- author | video_id | comments
---------+----------+-----------------------------------
-  user1 |       10 |                  ['Not my thing']
-  user1 |       13 | ['Pretty cool', 'Funny to Watch']
+                      3
 ```
 
 
-### 9. Os 5 vídeos com maior rating;
-
-#### Não é possível fazer esta query, pela mesma razão da alinea 6, seria necessário restringir a partição.
-
-
-### 10. Uma query que retorne todos os vídeos e que mostre claramente a forma pela qual estão ordenados.
-
-#### Não é possível fazer esta query.
-
-
-### 11. Lista com as Tags existentes e o número de vídeos catalogados com cada uma delas;
-
-#### `select tag, num_videos from tag_video;`
-
+### Select all consultations that a medic has ordered by the their date and time descending
+### This is possible because there is a clustering order on the table creation
+`select * from consultation where medic_id_name=(1,'Joao');`
+```
+ num_cons | date_time                       | medic_id_name | pacient_id_name | prescription_pharmaco_quantity
+----------+---------------------------------+---------------+-----------------+--------------------------------
+       13 | 2020-12-25 16:11:39.058000+0000 |   (1, 'Joao') |   (10, 'Tiago') |                 {13: 1, 14: 2}
+        1 | 2020-12-25 16:11:38.849000+0000 |   (1, 'Joao') |      (1, 'Jos') |                         {1: 3}
+        2 | 2020-12-25 16:11:38.856000+0000 |   (1, 'Joao') |      (1, 'Jos') |                   {1: 1, 2: 3}
 ```
 
- tag       | num_videos
------------+------------
-    Comedy |          1
-   Travell |          3
-    Action |          3
-   Amazing |          1
-      Dark |          1
-  Universe |          2
-   Romance |          2
-  Children |          1
-     Crime |          1
- Adventure |          1
+
+### Select all consultations of the pacient number 3
+`select consultations_id from pacient where num_pac=3;`
+```
+ consultations_id
+------------------
+    [4, 5, 6, 18]
 ```
 
+
+### Select all consultations that the previous pacient has, ordered by the their date and time descending
+`select * from consultation where num_cons in (4, 5, 6, 18) order by date_time desc;`
+```
+ num_cons | date_time                       | medic_id_name | pacient_id_name | prescription_pharmaco_quantity
+----------+---------------------------------+---------------+-----------------+--------------------------------
+       18 | 2020-12-25 16:25:37.833000+0000 | (12, 'Bruno') |  (3, 'Ricardo') |                        {19: 1}
+        6 | 2020-12-25 16:25:37.629000+0000 |  (3, 'Marco') |  (3, 'Ricardo') |                         {6: 1}
+        5 | 2020-12-25 16:25:37.550000+0000 |  (3, 'Marco') |  (3, 'Ricardo') |           {5: 1, 14: 1, 16: 3}
+        4 | 2020-12-25 16:25:37.545000+0000 |  (3, 'Marco') |  (3, 'Ricardo') |                  {4: 2, 15: 2}
+```
+
+
+### Select the pharmacos supplied by the supplier='Pfizer'
+#### Possible because of index
+`select * from pharmaco where supplier='Pfizer';`
+```
+ code | price | name           | supplier
+------+-------+----------------+----------
+   10 |  12.2 |      Lidocaine |   Pfizer
+   16 |  19.9 | Metoclopramide |   Pfizer
+   11 |  4.99 |       Ultracet |   Pfizer
+   18 |    30 |      Myrbetriq |   Pfizer
+    6 | 13.99 |        Indocin |   Pfizer
+    9 |   9.5 |        Lumigan |   Pfizer
+   17 |  45.9 |       Morphine |   Pfizer
+```
+
+
+### Select the top 3 most expensive pharmacos of the previous pharmacos
+### Possible because of clustering key price
+`select * from pharmaco where code in (10,16,11,18,6,9,17) order by price desc limit 3;`
+```
+ code | price | name           | supplier
+------+-------+----------------+----------
+   17 |  45.9 |       Morphine |   Pfizer
+   18 |    30 |      Myrbetriq |   Pfizer
+   16 |  19.9 | Metoclopramide |   Pfizer
+```
+
+
+### Select all pharmacos with prizes between 9$ and 15$
+`select * from pharmaco where price>9 and price<15 allow filtering;`
+```
+ code | name        | price | supplier
+------+-------------+-------+-------------------
+   10 |   Lidocaine |  12.2 | Johnson & Johnson
+    1 |   Albuterol |  10.9 |         Eli Lilly
+    7 | Latanoprost |  12.2 |             Roche
+    6 |     Indocin | 13.99 |            Pfizer
+    9 |     Lumigan |   9.5 |          Novartis
+```
+
+
+### Select all medics with the speciality 'Oftalmologia'
+`select * from medic where speciality='Oftalmologia' allow filtering;`
+```
+ num_func | address           | consultations_id | email                  | name   | pacients_id | speciality   | telephone
+----------+-------------------+------------------+------------------------+--------+-------------+--------------+-----------
+       11 |  Avenida de Taipa |             [16] | email_med_11@gmail.com | Daniel |        {13} | Oftalmologia | 912451121
+        8 |  Avenida de Casal |             [19] |  email_med_8@gmail.com |   Joao |        {10} | Oftalmologia | 912451118
+        2 | Rua de Albergaria |              [3] |  email_med_2@gmail.com |  Maria |         {2} | Oftalmologia | 912451112
+        3 |      Rua de Gavio |        [4, 5, 6] |  email_med_3@gmail.com |  Marco |         {3} | Oftalmologia | 912451113
+```
+
+
+### Select all pacients with the name 'Ricardo'
+`select * from pacient where name='Ricardo' allow filtering;`
+```
+ num_pac | address         | consultations_id | email                 | name    | telephone
+---------+-----------------+------------------+-----------------------+---------+-----------
+       4 |   Rua de Santos |              [7] | email_pac_4@gmail.com | Ricardo | 912554120
+       3 | Rua de Oliveira |    [4, 5, 6, 18] | email_pac_3@gmail.com | Ricardo | 912554120
+```
+
+
+### Select all consultations of a pacient with a certain medic
+### This requires allow filtering because there isn't an index on pacient_id_name
+`select * from consultation where medic_id_name=(3, 'Marco') and pacient_id_name=(3, 'Ricardo') allow filtering;`
+```
+ num_cons | date_time                       | medic_id_name | pacient_id_name | prescription_pharmaco_quantity
+----------+---------------------------------+---------------+-----------------+--------------------------------
+        5 | 2020-12-25 16:25:37.550000+0000 |  (3, 'Marco') |  (3, 'Ricardo') |           {5: 1, 14: 1, 16: 3}
+        4 | 2020-12-25 16:25:37.545000+0000 |  (3, 'Marco') |  (3, 'Ricardo') |                  {4: 2, 15: 2}
+        6 | 2020-12-25 16:25:37.629000+0000 |  (3, 'Marco') |  (3, 'Ricardo') |                         {6: 1}
+```
